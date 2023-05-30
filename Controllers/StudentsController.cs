@@ -89,7 +89,7 @@ namespace Assignment_CFA.Controllers
 
             _context.Entry(student).State = EntityState.Modified;
 
-            var updateStu = mapper.Map<Students>(_context.Entry(student).State);
+            //var updateStu = mapper.Map<Students>(_context.Entry(student).State);
             try
             {
                 await _context.SaveChangesAsync();
@@ -106,7 +106,7 @@ namespace Assignment_CFA.Controllers
                 }
             }
 
-            return Ok(updateStu);
+            return NoContent();
         }
         [Route("PostData")]
         [HttpPost]
