@@ -6,21 +6,21 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Assignment_CFA.Repositories
 {
-    public class StudentRepo:IStudentRepo
+    public class StudentRepo : IStudentRepo
     {
 
-      private readonly Assignment_CFAContext _context;
+        private readonly Assignment_CFAContext _context;
 
         public StudentRepo(Assignment_CFAContext context)
         {
             _context = context;
         }
 
-        public  async  Task<List<Students>> GetAll() 
-            {
-                return await _context.Student.ToListAsync();
-            }
-          public async  Task<Students> GetByID(Guid id)
+        public async Task<List<Students>> GetAll()
+        {
+            return await _context.Student.ToListAsync();
+        }
+        public async Task<Students> GetByID(Guid id)
 
         {
             try
@@ -34,18 +34,18 @@ namespace Assignment_CFA.Repositories
                 return null;
             }
         }
-          public async Task<Students>  AddStudentAsync(Students student)
+        public async Task<Students> AddStudentAsync(Students student)
 
 
         {
             _context.Student.Add(student);
             var s = await _context.SaveChangesAsync();
             return student;
-          
+
         }
 
-           public async Task<Students> DeleteStudentAsync(Guid id, IStudentRepo studentRepo)
-         {
+        public async Task<Students> DeleteStudentAsync(Guid id, IStudentRepo studentRepo)
+        {
             var student = await studentRepo.GetByID(id);
             if (student != null)
             {
@@ -55,11 +55,11 @@ namespace Assignment_CFA.Repositories
             await _context.SaveChangesAsync();
             return student;
         }
-           public async Task<Students> UpdateDetail(Guid id, Students student)
+        public async Task<Students> UpdateDetail(Guid id, Students student)
         {
             throw new NotImplementedException();
 
         }
 
-        }
     }
+}

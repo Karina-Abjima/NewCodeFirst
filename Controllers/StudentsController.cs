@@ -12,7 +12,7 @@ using Assignment_CFA.Repositories;
 
 namespace Assignment_CFA.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("Home")]
     [ApiController]
     public class StudentsController : ControllerBase
     {
@@ -28,6 +28,7 @@ namespace Assignment_CFA.Controllers
         }
 
         // GET: api/Students
+        [Route("getData")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Students>>> GetStudent()
         {/*
@@ -54,7 +55,8 @@ namespace Assignment_CFA.Controllers
         }
 
         // GET: api/Students/5
-        [HttpGet("{id}")]
+        [Route("GetDataById")]
+        [HttpGet]
         public async  Task<ActionResult<Students>> GetStudent(Guid id)
         {
             
@@ -76,8 +78,8 @@ namespace Assignment_CFA.Controllers
                 
         }
 
-       
-        [HttpPut("{id}")]
+        [Route("PutDataOrUpdate")]
+        [HttpPut]
         public async Task<IActionResult> PutStudent(Guid id, Students student)
         {
             if (id != student.StudentId)
@@ -106,11 +108,7 @@ namespace Assignment_CFA.Controllers
 
             return Ok(updateStu);
         }
-        ///
-
-        // POST: api/Students
-                
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Route("PostData")]
         [HttpPost]
         public async Task<ActionResult<Students>> PostStudent(Students student)
         {
@@ -127,7 +125,8 @@ namespace Assignment_CFA.Controllers
         }
 
         // DELETE: api/Students/5
-        [HttpDelete("{id}")]
+        [Route("deleteData")]
+        [HttpDelete]
         public async Task<IActionResult> DeleteStudent(Guid id)
         {
             if (_context.Student == null)
@@ -149,6 +148,12 @@ namespace Assignment_CFA.Controllers
         private bool StudentExists(Guid id)
         {
             return (_context.Student?.Any(e => e.StudentId == id)).GetValueOrDefault();
+        }
+        [HttpGet]
+        [Route("getHello")]
+        public string hello()
+        {
+            return ("hello there!");
         }
     }
 }
