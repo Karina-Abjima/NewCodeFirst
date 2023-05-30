@@ -20,10 +20,10 @@ namespace Assignment_CFA.Controllers
         private readonly IMapper mapper;
         private readonly IStudentRepo studentRepo;
 
-        public StudentsController(Assignment_CFAContext context,IMapper mapper,IStudentRepo studentRepo)
+        public StudentsController(Assignment_CFAContext context, IMapper mapper, IStudentRepo studentRepo)
         {
             _context = context;
-           this.mapper = mapper;
+            this.mapper = mapper;
             this.studentRepo = studentRepo;
         }
 
@@ -57,25 +57,25 @@ namespace Assignment_CFA.Controllers
         // GET: api/Students/5
         [Route("GetDataById")]
         [HttpGet]
-        public async  Task<ActionResult<Students>> GetStudent(Guid id)
+        public async Task<ActionResult<Students>> GetStudent(Guid id)
         {
-            
-               
-                    if (_context.Student == null)
-                    {
 
-                        throw new ArgumentNullException(nameof(id));
 
-                    }
-                    var studentsDetail = await studentRepo.GetByID(id);
+            if (_context.Student == null)
+            {
 
-                    if (studentsDetail == null)
-                    {
-                        return NotFound();
-                    }
-                    var item = mapper.Map<Students>(studentsDetail);
-                    return Ok(item);
-                
+                throw new ArgumentNullException(nameof(id));
+
+            }
+            var studentsDetail = await studentRepo.GetByID(id);
+
+            if (studentsDetail == null)
+            {
+                return NotFound();
+            }
+            var item = mapper.Map<Students>(studentsDetail);
+            return Ok(item);
+
         }
 
         [Route("PutDataOrUpdate")]
@@ -112,16 +112,16 @@ namespace Assignment_CFA.Controllers
         [HttpPost]
         public async Task<ActionResult<Students>> PostStudent(Students student)
         {
-          if (_context.Student == null)
-          {
-              return Problem("Entity set 'Assignment_CFAContext.Student'  is null.");
-          }
+            if (_context.Student == null)
+            {
+                return Problem("Entity set 'Assignment_CFAContext.Student'  is null.");
+            }
             _context.Student.Add(student);
             mapper.Map<Students>(student);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetStudent", new { id = student.StudentId }, student);
-           
+
         }
 
         // DELETE: api/Students/5
@@ -148,12 +148,12 @@ namespace Assignment_CFA.Controllers
         private bool StudentExists(Guid id)
         {
             return (_context.Student?.Any(e => e.StudentId == id)).GetValueOrDefault();
-        }
+        }//dummy route to learn the concept
         [HttpGet]
-        [Route("getHello")]
-        public string hello()
+        [Route("getHello/{name}")]
+        public string hello(string name)
         {
-            return ("hello there!");
+            return ( "hello "+name);
         }
     }
 }
