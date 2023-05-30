@@ -88,6 +88,7 @@ namespace Assignment_CFA.Controllers
 
             _context.Entry(student).State = EntityState.Modified;
 
+            var updateStu = mapper.Map<Students>(_context.Entry(student).State);
             try
             {
                 await _context.SaveChangesAsync();
@@ -104,8 +105,9 @@ namespace Assignment_CFA.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(updateStu);
         }
+        ///
 
         // POST: api/Students
                 
@@ -118,9 +120,11 @@ namespace Assignment_CFA.Controllers
               return Problem("Entity set 'Assignment_CFAContext.Student'  is null.");
           }
             _context.Student.Add(student);
+            mapper.Map<Students>(student);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetStudent", new { id = student.StudentId }, student);
+           
         }
 
         // DELETE: api/Students/5

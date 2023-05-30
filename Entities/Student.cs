@@ -12,6 +12,7 @@ namespace Assignment_CFA.Entities
         [Required]
         public string FName { get; set; }
         [Required]
+       
         public string Lname { get; set; }
         [Required]
         public int Age { get; set; }

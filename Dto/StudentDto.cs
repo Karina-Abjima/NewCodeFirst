@@ -11,7 +11,8 @@ namespace Assignment_CFA.Dto
         public int Age { get; set; }
       
         public int Roll { get; set; }
-        
+
+      
         public long Contact { get; set; }
        
         public string address { get; set; }
